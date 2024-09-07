@@ -1,5 +1,7 @@
 package com.gamecrew.demo.domain;
 
+import com.gamecrew.demo.domain.item.Rank;
+import com.gamecrew.demo.domain.item.Role;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -20,5 +22,10 @@ public class Brawler {
     @OneToMany(mappedBy = "brawler", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserBrawler> userBrawlers = new ArrayList<>();
 
-    // 기타 필드 및 메소드
+    @Enumerated(EnumType.STRING)
+    private Rank rank;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 }

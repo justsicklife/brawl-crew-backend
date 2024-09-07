@@ -5,8 +5,36 @@
     <title>Title</title>
 </head>
 <body>
-    <form>
-        <input name="playerTag">
+    <form action="/new" method="post">
+        <div>
+            <label>player Tag</label>
+            <input value="" name="playerTag">
+        </div>
+        <div>
+            <label>sex</label>
+            <select name="sex">
+                <option value="MALE">male</option>
+                <option value="FEMALE">female</option>
+            </select>
+        </div>
+        <div>
+            <label>ageGroup</label>
+            <select name="ageGroup">
+                <option value="ELEMENTARY">ELEMENTARY</option>
+                <option value="MIDDLE_SCHOOL">MIDDLE_SCHOOL</option>
+                <option value="HIGH_SCHOOL">HIGH_SCHOOL</option>
+                <option value="ADULT">ADULT</option>
+            </select>
+        </div>
+        <div>
+            <label>memo</label>
+            <input type="text" name="memo">
+        </div>
+        <div>
+            <label>trophies</label>
+            <input name="trophies">
+        </div>
+        <button>제출</button>
     </form>
 </body>
 </html>

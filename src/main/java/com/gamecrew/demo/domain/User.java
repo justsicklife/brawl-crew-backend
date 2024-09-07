@@ -3,12 +3,16 @@ package com.gamecrew.demo.domain;
 import com.gamecrew.demo.domain.item.AgeGroup;
 import com.gamecrew.demo.domain.item.Sex;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -34,9 +38,16 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserBrawler> userBrawlers = new ArrayList<>();
 
-    // 편의 메소드 추가
-    public void addBrawler(Brawler brawler, int rank) {
-        UserBrawler userBrawler = new UserBrawler(this, brawler, rank);
-        userBrawlers.add(userBrawler);
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", playerTag='" + playerTag + '\'' +
+                ", ageGroup=" + ageGroup +
+                ", sex=" + sex +
+                ", createDate=" + createDate +
+                ", memo='" + memo + '\'' +
+                ", userBrawlers=" + userBrawlers +
+                '}';
     }
 }
