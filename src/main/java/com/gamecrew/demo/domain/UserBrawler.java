@@ -1,9 +1,13 @@
 package com.gamecrew.demo.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "user_brawler")
+@Getter
+@Setter
 public class UserBrawler {
 
     @Id
@@ -20,5 +24,7 @@ public class UserBrawler {
     private Brawler brawler;
 
     private int trophy;
+
+
 
 }
