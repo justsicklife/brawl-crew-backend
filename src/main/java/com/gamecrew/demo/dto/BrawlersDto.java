@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Brawlers {
+public class BrawlersDto {
     private Long id;
     private String name;
-    private Long trophies;
+    private int trophies;
 
 }

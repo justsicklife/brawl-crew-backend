@@ -24,7 +24,4 @@ public class UserBrawler {
     private Brawler brawler;
 
     private int trophy;
-
-
-
 }

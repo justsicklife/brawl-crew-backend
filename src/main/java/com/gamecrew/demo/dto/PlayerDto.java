@@ -12,11 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 // Json 파싱
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Player {
+public class PlayerDto {
 
     private String tag;
     private String name;
     private Long trophies;
 
-    private List<Brawlers> brawlers;
+    private List<BrawlersDto> brawlers;
 }
