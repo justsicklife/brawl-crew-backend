@@ -2,9 +2,9 @@
 
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/boot_study
-    username: boot
-    password: 1234
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${ SPRING_DATASOURCE_USERNAME }
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
@@ -27,3 +27,8 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+brawlstars:
+  api:
+    playerUrl: https://api.brawlstars.com/v1/players/
+    token: ${BRAWLSTARS_API_TOKEN}
