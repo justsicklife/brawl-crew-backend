@@ -6,6 +6,7 @@ import com.gamecrew.demo.domain.UserBrawler;
 import com.gamecrew.demo.dto.BrawlersDto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,23 +24,28 @@ public class UserRepository {
     private EntityManager em;
 
     @Transactional(readOnly = false)
-    public void save(User user, List<BrawlersDto> brawlersDto) {
+    public void save(User user) {
         em.persist(user);
+    }
 
-        for (BrawlersDto brawlerDto : brawlersDto) {
-            // 유저 브롤러 생성
-            UserBrawler userBrawler = new UserBrawler();
-            // 브롤러 이름으로 조회
-            Brawler brawler = brawlerRepository.findByBrawlerName(brawlerDto.getName());
-            // 유저 브롤러 가 유저를 참조함 (유저 브롤러가 외래키 값을 가짐 유저에)
-            userBrawler.setUser(user);
-            // 유저 브롤러가 브롤러를 참조함
-            userBrawler.setBrawler(brawler);
-            // 유저 브롤러에 트로피 값을 가져옴
-            userBrawler.setTrophy(brawlerDto.getTrophies());
-            // 유저 브롤러 저장
-            em.persist(userBrawler);
-        }
+    public User find(Long id) {
+        User user = em.find(User.class, id);
+        user.getUserBrawlers();
+        return user;
 
+    }
+
+    public List<User> findUserWithBrawlers(int page, int size) {
+        String queryStr = "SELECT u FROM User u " +
+                "JOIN FETCH u.userBrawlers ub " +
+                "JOIN FETCH ub.brawler";
+
+        TypedQuery<User> query = em.createQuery(queryStr, User.class);
+
+        // 페이징 처리
+        query.setFirstResult(page*size);
+        query.setMaxResults(size);
+
+        return query.getResultList();
     }
 }

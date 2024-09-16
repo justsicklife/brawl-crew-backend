@@ -3,6 +3,7 @@ package com.gamecrew.demo.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "user_brawler")
@@ -15,11 +16,11 @@ public class UserBrawler {
     @Column(name = "user_brawler_id")
     private Long userBrawlerId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brawler_id")
     private Brawler brawler;
 

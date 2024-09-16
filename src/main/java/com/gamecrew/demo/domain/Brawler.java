@@ -3,12 +3,16 @@ package com.gamecrew.demo.domain;
 import com.gamecrew.demo.domain.item.Rank;
 import com.gamecrew.demo.domain.item.Role;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "brawler")
+@Setter
+@Getter
 public class Brawler {
 
     @Id

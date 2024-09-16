@@ -41,17 +41,4 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserBrawler> userBrawlers = new ArrayList<>();
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", playerTag='" + playerTag + '\'' +
-                ", ageGroup=" + ageGroup +
-                ", sex=" + sex +
-                ", createDate=" + createDate +
-                ", memo='" + memo + '\'' +
-                ", userBrawlers=" + userBrawlers +
-                '}';
-    }
 }

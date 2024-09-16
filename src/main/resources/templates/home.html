@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -36,5 +36,39 @@
         </div>
         <button>제출</button>
     </form>
+
+    <table>
+        <th:block th:each="user : ${users}">
+            <tr>
+                <td>
+                    <span th:text="${user.getPlayerTag()}">
+                        playerTag
+                    </span>
+                </td>
+                <td>
+                    <span th:text="${user.getAgeGroup()}">
+                        ageGroup
+                    </span>
+                </td>
+                <td>
+                    <span th:text="${user.getSex()}">
+                        sex
+                    </span>
+                </td>
+                <td>
+                    <span th:text="${user.getMemo()}">
+                        memo
+                    </span>
+                </td>
+                <th:blcok th:each="userBrawler : ${user.getUserBrawlers()}">
+                    <td>
+                        <span th:text="${userBrawler.getBrawler().getName()}">
+                            name
+                        </span>
+                    </td>
+                </th:blcok>
+            </tr>
+        </th:block>
+    </table>
 </body>
 </html>
