@@ -1,14 +1,15 @@
 package com.gamecrew.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Table(name = "user_brawler")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserBrawler {
 
     @Id
@@ -16,6 +17,8 @@ public class UserBrawler {
     @Column(name = "user_brawler_id")
     private Long userBrawlerId;
 
+
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

@@ -41,6 +41,11 @@ public class UserService {
             if(player != null) {
                 // 가장 트로피가 많은 브롤러 3 개를 뽑아옴
                 List<BrawlersDto> topBrawlers = getTopBrawlers(player);
+
+                // api 로 조회한 값들 setting
+                user.setTrophies(player.getTrophies());
+                user.setName(player.getName());
+
                 // 유저 저장
                 userRepository.save(user);
 

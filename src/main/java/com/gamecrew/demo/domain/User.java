@@ -3,7 +3,9 @@ package com.gamecrew.demo.domain;
 import com.gamecrew.demo.domain.item.AgeGroup;
 import com.gamecrew.demo.domain.item.Sex;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,6 +18,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class) // 추가
 public class User {
 
@@ -37,6 +41,9 @@ public class User {
     @Column(name = "create_date")
     private LocalDateTime createDate;
 
+    private String name;
+    private int trophies;
+    
     private String memo;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

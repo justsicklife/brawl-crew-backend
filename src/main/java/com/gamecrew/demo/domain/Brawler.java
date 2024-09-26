@@ -1,9 +1,12 @@
 package com.gamecrew.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gamecrew.demo.domain.item.Rank;
 import com.gamecrew.demo.domain.item.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -13,6 +16,8 @@ import java.util.List;
 @Table(name = "brawler")
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Brawler {
 
     @Id
@@ -23,6 +28,7 @@ public class Brawler {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "brawler", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserBrawler> userBrawlers = new ArrayList<>();
 

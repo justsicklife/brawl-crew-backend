@@ -29,10 +29,7 @@ public class UserRepository {
     }
 
     public User find(Long id) {
-        User user = em.find(User.class, id);
-        user.getUserBrawlers();
-        return user;
-
+        return em.find(User.class, id);
     }
 
     public List<User> findUserWithBrawlers(int page, int size) {

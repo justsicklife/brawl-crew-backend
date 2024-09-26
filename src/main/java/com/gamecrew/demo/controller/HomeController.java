@@ -6,8 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +27,8 @@ public class HomeController {
         return "home";
     }
 
+
+
     @PostMapping("/new")
     public String newUser(User user) {
         log.info(user.toString());
@@ -36,4 +37,19 @@ public class HomeController {
         return "redirect:/";
     }
 
+    @GetMapping("/users")
+    @ResponseBody
+    public List<User> getUser() {
+        List<User> usersWithBrawlers = userService.getUsersWithBrawlers(0, 10);
+        System.out.println("usersWithBrawlers = " + usersWithBrawlers);
+        return usersWithBrawlers;
+    }
+
+    @PostMapping("/user")
+    @ResponseBody
+    public String createUser(@RequestBody User user) {
+        log.info("createUser");
+        userService.saveUserAndTopBrawlers(user);
+        return "success";
+    }
 }

@@ -16,7 +16,7 @@ public class PlayerDto {
 
     private String tag;
     private String name;
-    private Long trophies;
+    private int trophies;
 
     private List<BrawlersDto> brawlers;
 }
