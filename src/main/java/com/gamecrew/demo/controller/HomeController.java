@@ -1,6 +1,8 @@
 package com.gamecrew.demo.controller;
 
+import com.gamecrew.demo.domain.Post;
 import com.gamecrew.demo.domain.User;
+import com.gamecrew.demo.service.PostService;
 import com.gamecrew.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,8 @@ import java.util.List;
 public class HomeController {
 
     final UserService userService;
+    final PostService postService;
+
 
     @RequestMapping("/")
     public String home(Model model) {
@@ -37,12 +41,12 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @GetMapping("/users")
+    @GetMapping("/posts")
     @ResponseBody
-    public List<User> getUser() {
-        List<User> usersWithBrawlers = userService.getUsersWithBrawlers(0, 10);
-        System.out.println("usersWithBrawlers = " + usersWithBrawlers);
-        return usersWithBrawlers;
+    public List<Post> getUser() {
+        List<Post> postsWithBrawlers = postService.getPostsWithBrawlers(0, 10);
+        System.out.println("postsWithBrawlers = " + postsWithBrawlers);
+        return postsWithBrawlers;
     }
 
     @PostMapping("/user")
@@ -50,6 +54,14 @@ public class HomeController {
     public String createUser(@RequestBody User user) {
         log.info("createUser");
         userService.saveUserAndTopBrawlers(user);
+        return "success";
+    }
+
+    @PostMapping("/post")
+    @ResponseBody
+    public String createPost(@RequestBody Post post) {
+        User user = userService.userFindById(17L);
+        postService.savePost(user,post);
         return "success";
     }
 }

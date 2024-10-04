@@ -1,5 +1,6 @@
 package com.gamecrew.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gamecrew.demo.domain.item.AgeGroup;
 import com.gamecrew.demo.domain.item.Sex;
 import jakarta.persistence.*;
@@ -43,9 +44,11 @@ public class User {
 
     private String name;
     private int trophies;
-    
-    private String memo;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserBrawler> userBrawlers = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Post post;
 }
