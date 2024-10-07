@@ -14,8 +14,8 @@ public class PostService {
 
     final PostRepository postRepository;
 
-    public void savePost(User user, Post post) {
-        postRepository.save(user,post);
+    public void savePost(Post post) {
+        postRepository.save(post);
     }
 
     public List<Post> getPostsWithBrawlers(int page, int size) {

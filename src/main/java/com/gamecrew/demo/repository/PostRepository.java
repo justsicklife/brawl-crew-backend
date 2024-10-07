@@ -20,9 +20,8 @@ public class PostRepository {
     EntityManager em;
 
     @Transactional
-    public void save(User user , Post post) {
+    public void save(Post post) {
         em.persist(post);
-        post.setUser(user);
     }
 
     public List<Post> findPostsWithBrawlers(int page, int size) {

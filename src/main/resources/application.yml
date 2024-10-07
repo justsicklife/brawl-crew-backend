@@ -32,3 +32,7 @@ brawlstars:
   api:
     playerUrl: https://api.brawlstars.com/v1/players/
     token: ${BRAWLSTARS_API_TOKEN}
+
+jwt:
+  secret: abc
+  expiration: 3000

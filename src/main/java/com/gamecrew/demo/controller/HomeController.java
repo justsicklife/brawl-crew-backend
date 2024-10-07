@@ -2,6 +2,7 @@ package com.gamecrew.demo.controller;
 
 import com.gamecrew.demo.domain.Post;
 import com.gamecrew.demo.domain.User;
+import com.gamecrew.demo.dto.PostDto;
 import com.gamecrew.demo.service.PostService;
 import com.gamecrew.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -44,9 +45,7 @@ public class HomeController {
     @GetMapping("/posts")
     @ResponseBody
     public List<Post> getUser() {
-        List<Post> postsWithBrawlers = postService.getPostsWithBrawlers(0, 10);
-        System.out.println("postsWithBrawlers = " + postsWithBrawlers);
-        return postsWithBrawlers;
+        return postService.getPostsWithBrawlers(0, 10);
     }
 
     @PostMapping("/user")
@@ -59,9 +58,17 @@ public class HomeController {
 
     @PostMapping("/post")
     @ResponseBody
-    public String createPost(@RequestBody Post post) {
-        User user = userService.userFindById(17L);
-        postService.savePost(user,post);
+    public String createPost(@RequestBody PostDto postDto) {
+
+        User user = userService.userFindById(postDto.getId());
+
+        Post post = new Post();
+        post.setMemo(postDto.getMemo());
+
+        post.setUser(user);
+
+        postService.savePost(post);
+
         return "success";
     }
 }
