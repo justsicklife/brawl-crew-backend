@@ -2,7 +2,7 @@ package com.gamecrew.demo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gamecrew.demo.dto.PlayerDto;
+import com.gamecrew.demo.dto.PlayerResponseDto;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -39,11 +39,11 @@ public class BrawlStarsApiTest {
             }
             in.close();
 
-            PlayerDto player = objectMapper.readValue(response.toString(), PlayerDto.class);
+            PlayerResponseDto playerResponseDto = objectMapper.readValue(response.toString(), PlayerResponseDto.class);
 
-            System.out.println("player.toString() = " + player.toString());
+            System.out.println("player.toString() = " + playerResponseDto.toString());
 
-            System.out.println("player.getBrawlers().get(0).getName() = " + player.getBrawlers().get(0).getName());
+            System.out.println("player.getBrawlers().get(0).getName() = " + playerResponseDto.getBrawlers().get(0).getName());
             
         } catch (IOException e) {
             // TODO Auto-generated catch block

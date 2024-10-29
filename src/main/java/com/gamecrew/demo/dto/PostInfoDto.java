@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PostDto {
+public class PostInfoDto {
 
     private Long id;
     private String memo;

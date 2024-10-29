@@ -1,21 +1,14 @@
 package com.gamecrew.demo.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamecrew.demo.domain.User;
-import com.gamecrew.demo.dto.BrawlersDto;
-import com.gamecrew.demo.dto.PlayerDto;
-import com.gamecrew.demo.repository.UserBrawlerRepository;
+import com.gamecrew.demo.dto.BrawlersResponseDto;
+import com.gamecrew.demo.dto.PlayerResponseDto;
 import com.gamecrew.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
 
@@ -36,15 +29,15 @@ public class UserService {
         try {
 
             // api json 으로 받아옴
-            PlayerDto player = playerApiService.getPlayerData(user.getPlayerTag());
+            PlayerResponseDto playerResponseData = playerApiService.getPlayerResponseData(user.getPlayerTag());
 
-            if(player != null) {
+            if(playerResponseData != null) {
                 // 가장 트로피가 많은 브롤러 3 개를 뽑아옴
-                List<BrawlersDto> topBrawlers = getTopBrawlers(player);
+                List<BrawlersResponseDto> topBrawlers = getTopBrawlers(playerResponseData);
 
                 // api 로 조회한 값들 setting
-                user.setTrophies(player.getTrophies());
-                user.setName(player.getName());
+                user.setTrophies(playerResponseData.getTrophies());
+                user.setName(playerResponseData.getName());
 
                 // 유저 저장
                 userRepository.save(user);
@@ -71,9 +64,9 @@ public class UserService {
         return userRepository.findUserWithBrawlers(page,size);
     }
 
-    private List<BrawlersDto> getTopBrawlers(PlayerDto player) {
-        return player.getBrawlers().stream()
-                .sorted(Comparator.comparing(BrawlersDto::getTrophies).reversed())
+    private List<BrawlersResponseDto> getTopBrawlers(PlayerResponseDto playerResponseDto) {
+        return playerResponseDto.getBrawlers().stream()
+                .sorted(Comparator.comparing(BrawlersResponseDto::getTrophies).reversed())
                 .limit(3)
                 .toList();
     }

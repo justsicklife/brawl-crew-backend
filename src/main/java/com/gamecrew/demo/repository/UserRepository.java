@@ -1,9 +1,6 @@
 package com.gamecrew.demo.repository;
 
-import com.gamecrew.demo.domain.Brawler;
 import com.gamecrew.demo.domain.User;
-import com.gamecrew.demo.domain.UserBrawler;
-import com.gamecrew.demo.dto.BrawlersDto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;

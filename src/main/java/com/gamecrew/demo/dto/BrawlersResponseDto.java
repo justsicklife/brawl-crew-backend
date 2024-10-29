@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BrawlersDto {
+public class BrawlersResponseDto {
     private Long id;
     private String name;
     private int trophies;

@@ -1,7 +1,7 @@
 package com.gamecrew.demo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gamecrew.demo.dto.PlayerDto;
+import com.gamecrew.demo.dto.PlayerResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class PlayerApiService {
     @Value("${brawlstars.api.token}")
     private String token; // 환경 변수나 설정 파일로 관리
 
-    public PlayerDto getPlayerData(String playerTag) throws IOException {
+    public PlayerResponseDto getPlayerResponseData(String playerTag) throws IOException {
 
         String formattedPlayerTag = formatPlayerTag(playerTag);
         URL url = new URL(baseUrl + formattedPlayerTag);
@@ -41,7 +41,7 @@ public class PlayerApiService {
         in.close();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(response.toString(),PlayerDto.class);
+        return objectMapper.readValue(response.toString(), PlayerResponseDto.class);
     }
 
     private String formatPlayerTag(String playerTag) {

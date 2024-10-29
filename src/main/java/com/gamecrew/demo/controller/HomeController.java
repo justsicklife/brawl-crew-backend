@@ -2,7 +2,7 @@ package com.gamecrew.demo.controller;
 
 import com.gamecrew.demo.domain.Post;
 import com.gamecrew.demo.domain.User;
-import com.gamecrew.demo.dto.PostDto;
+import com.gamecrew.demo.dto.PostInfoDto;
 import com.gamecrew.demo.service.PostService;
 import com.gamecrew.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -58,12 +58,12 @@ public class HomeController {
 
     @PostMapping("/post")
     @ResponseBody
-    public String createPost(@RequestBody PostDto postDto) {
+    public String createPost(@RequestBody PostInfoDto postInfoDto) {
 
-        User user = userService.userFindById(postDto.getId());
+        User user = userService.userFindById(postInfoDto.getId());
 
         Post post = new Post();
-        post.setMemo(postDto.getMemo());
+        post.setMemo(postInfoDto.getMemo());
 
         post.setUser(user);
 
