@@ -2,7 +2,8 @@ package com.gamecrew.demo.controller;
 
 import com.gamecrew.demo.domain.Post;
 import com.gamecrew.demo.domain.User;
-import com.gamecrew.demo.dto.PostInfoDto;
+import com.gamecrew.demo.dto.request.PostInfoDto;
+import com.gamecrew.demo.dto.service.PostWithBrawlerDto;
 import com.gamecrew.demo.service.PostService;
 import com.gamecrew.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,7 @@ public class HomeController {
 
     @GetMapping("/posts")
     @ResponseBody
-    public List<Post> getUser() {
+    public List<PostWithBrawlerDto> getUser() {
         return postService.getPostsWithBrawlers(0, 10);
     }
 

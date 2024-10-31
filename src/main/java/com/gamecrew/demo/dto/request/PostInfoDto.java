@@ -1,4 +1,4 @@
-package com.gamecrew.demo.dto;
+package com.gamecrew.demo.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

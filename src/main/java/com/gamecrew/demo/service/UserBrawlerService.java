@@ -3,7 +3,7 @@ package com.gamecrew.demo.service;
 import com.gamecrew.demo.domain.Brawler;
 import com.gamecrew.demo.domain.User;
 import com.gamecrew.demo.domain.UserBrawler;
-import com.gamecrew.demo.dto.BrawlersResponseDto;
+import com.gamecrew.demo.dto.api.BrawlersResponseDto;
 import com.gamecrew.demo.repository.BrawlerRepository;
 import com.gamecrew.demo.repository.UserBrawlerRepository;
 import lombok.RequiredArgsConstructor;

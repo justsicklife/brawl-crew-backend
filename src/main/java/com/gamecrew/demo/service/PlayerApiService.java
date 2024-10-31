@@ -1,7 +1,7 @@
 package com.gamecrew.demo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gamecrew.demo.dto.PlayerResponseDto;
+import com.gamecrew.demo.dto.api.PlayerResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 
 @Service
 public class PlayerApiService {

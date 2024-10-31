@@ -1,8 +1,8 @@
 package com.gamecrew.demo.service;
 
 import com.gamecrew.demo.domain.User;
-import com.gamecrew.demo.dto.BrawlersResponseDto;
-import com.gamecrew.demo.dto.PlayerResponseDto;
+import com.gamecrew.demo.dto.api.BrawlersResponseDto;
+import com.gamecrew.demo.dto.api.PlayerResponseDto;
 import com.gamecrew.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

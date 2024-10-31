@@ -1,4 +1,4 @@
-package com.gamecrew.demo.dto;
+package com.gamecrew.demo.dto.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
