@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gamecrew.demo.mapper.PostMapper">
+
+    <resultMap id="PostWithUserResultMap" type="com.gamecrew.demo.dto.api.PostDTO">
+        <!-- 매핑할 필드들 -->
+        <!-- property : dto 의 필드이름
+            column : 테이블에 있는 퀄럼 이름
+            userId 가 null 이 나오는 문제에 직면함
+            column=user_id 였음 근데 이걸 userId 로 고쳐서 해결함
+            이런 결과로 sql 에서 반환하는 userId 를 column 과 일치해야한다
+         -->
+        <result property="postId" column="postId"/>
+        <result property="memo" column="memo"/>
+        <result property="createDate" column="create_date"/>
+        <result property="userId" column="userId"/>
+
+        <!-- user 매핑 -->
+        <result property="user.playerTag" column="playerTag"/>
+        <result property="user.name" column="name"/>
+        <result property="user.trophies" column="trophies"/>
+        <result property="user.ageGroup" column="ageGroup"/>
+        <result property="user.sex" column="sex"/>
+
+        <!-- MostBrawlers 매핑 -->
+        <result property="mostBrawlers.firstBrawler" column="firstBrawler"/>
+        <result property="mostBrawlers.firstTrophy" column="firstTrophy"/>
+        <result property="mostBrawlers.secondBrawler" column="secondBrawler"/>
+        <result property="mostBrawlers.secondTrophy" column="secondTrophy"/>
+        <result property="mostBrawlers.thirdBrawler" column="thirdBrawler"/>
+        <result property="mostBrawlers.thirdTrophy" column="thirdTrophy"/>
+    </resultMap>
+
+    <select id="findPostsWithUsers" resultMap="PostWithUserResultMap">
+        SELECT
+            p.post_id AS postId,
+            p.memo,
+            p.create_date,
+            u.user_id AS userId,
+            u.player_tag AS playerTag,
+            u.name,
+            u.trophies,
+            u.age_group as ageGroup,
+            u.sex,
+            u.first_brawler AS firstBrawler,
+            u.first_trophy AS firstTrophy,
+            u.second_brawler AS secondBrawler,
+            u.second_trophy AS secondTrophy,
+            u.third_brawler AS thirdBrawler,
+            u.third_trophy AS thirdTrophy
+        FROM post p
+                 LEFT JOIN user u ON p.user_id = u.user_id
+        ORDER BY p.create_date DESC
+    </select>
+
+
+    <!-- 전체 게시글 개수 조회 -->
+    <select id="countPosts" resultType="int">
+        SELECT COUNT(*) FROM post
+    </select>
+
+</mapper>

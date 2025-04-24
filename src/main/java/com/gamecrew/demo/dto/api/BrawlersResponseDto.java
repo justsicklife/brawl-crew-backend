@@ -9,5 +9,4 @@ public class BrawlersResponseDto {
     private Long id;
     private String name;
     private int trophies;
-
 }

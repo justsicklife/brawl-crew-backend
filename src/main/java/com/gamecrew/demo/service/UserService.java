@@ -1,14 +1,17 @@
 package com.gamecrew.demo.service;
 
+import com.gamecrew.demo.domain.MostBrawlers;
 import com.gamecrew.demo.domain.User;
 import com.gamecrew.demo.dto.api.BrawlersResponseDto;
 import com.gamecrew.demo.dto.api.PlayerResponseDto;
+import com.gamecrew.demo.dto.service.UserBrawlersDto;
 import com.gamecrew.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -22,9 +25,7 @@ public class UserService {
 
     final PlayerApiService playerApiService;
 
-    final UserBrawlerService userBrawlerService;
-
-    public void saveUserAndTopBrawlers(User user) {
+    public void SaveUser(User user) {
 
         try {
 
@@ -39,11 +40,18 @@ public class UserService {
                 user.setTrophies(playerResponseData.getTrophies());
                 user.setName(playerResponseData.getName());
 
+                user.setMostBrawlers(new MostBrawlers(
+                        topBrawlers.get(0).getName(),
+                        topBrawlers.get(0).getTrophies(),
+                        topBrawlers.get(1).getName(),
+                        topBrawlers.get(1).getTrophies(),
+                        topBrawlers.get(2).getName(),
+                        topBrawlers.get(2).getTrophies()
+                        )
+                );
+
                 // 유저 저장
                 userRepository.save(user);
-
-                // 유저 브롤러 저장
-                userBrawlerService.saveUserBrawlers(user,topBrawlers);
 
                 log.info("Top 3 brawlers saved for user: {}", user.getPlayerTag());
             } else {
@@ -53,15 +61,10 @@ public class UserService {
             log.error("Error while saving user and brawlers for tag: {}",user.getPlayerTag(),e);
             throw new RuntimeException("Failed to save user and brawler",e);
         }
-
     }
 
     public User userFindById(Long id) {
         return userRepository.find(id);
-    }
-
-    public List<User> getUsersWithBrawlers(int page,int size) {
-        return userRepository.findUserWithBrawlers(page,size);
     }
 
     private List<BrawlersResponseDto> getTopBrawlers(PlayerResponseDto playerResponseDto) {

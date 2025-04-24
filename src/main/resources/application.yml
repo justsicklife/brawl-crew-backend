@@ -1,16 +1,18 @@
 # application.yml
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
 
 spring:
+
   datasource:
     url: ${SPRING_DATASOURCE_URL}
     username: ${ SPRING_DATASOURCE_USERNAME }
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+#    show-sql: true
     properties:
       hibernate:
         format_sql: true
@@ -20,23 +22,23 @@ spring:
     suffix: .html
     cache: false
 
-    security:
-      oauth2:
-        client:
-          registration:
-            google:
-              client-id: ${GOOGLE_CLIENT_ID}
-              client-secret: ${GOOGLE_CLIENT_SECRET}
-              redirect-uri: http://localohst:8080/login/oauth2/code/google
-              scope:
-                - profile
-                - email
-          provider:
-            google:
-              authorization-uri: https://accounts.google.com/o/oauth2/auth
-              token-uri: https://oauth2.googleapis.com/token
-              user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
-              user-name-attribute: sub
+#    security:
+#      oauth2:
+#        client:
+#          registration:
+#            google:
+#              client-id: ${GOOGLE_CLIENT_ID}
+#              client-secret: ${GOOGLE_CLIENT_SECRET}
+#              redirect-uri: http://localohst:8080/login/oauth2/code/google
+#              scope:
+#                - profile
+#                - email
+#          provider:
+#            google:
+#              authorization-uri: https://accounts.google.com/o/oauth2/auth
+#              token-uri: https://oauth2.googleapis.com/token
+#              user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+#              user-name-attribute: sub
 
 server:
   port: 8080

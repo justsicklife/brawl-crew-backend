@@ -20,7 +20,7 @@ import java.util.List;
 public class Post {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long postId;
 
@@ -28,7 +28,7 @@ public class Post {
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    private Date createDate;
+    private LocalDateTime createDate;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

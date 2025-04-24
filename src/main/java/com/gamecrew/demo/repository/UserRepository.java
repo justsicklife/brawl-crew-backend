@@ -15,8 +15,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class UserRepository {
 
-    final BrawlerRepository brawlerRepository;
-
     @PersistenceContext
     private EntityManager em;
 
@@ -29,17 +27,4 @@ public class UserRepository {
         return em.find(User.class, id);
     }
 
-    public List<User> findUserWithBrawlers(int page, int size) {
-        String queryStr = "SELECT u FROM User u " +
-                "JOIN FETCH u.userBrawlers ub " +
-                "JOIN FETCH ub.brawler";
-
-        TypedQuery<User> query = em.createQuery(queryStr, User.class);
-
-        // 페이징 처리
-        query.setFirstResult(page*size);
-        query.setMaxResults(size);
-
-        return query.getResultList();
-    }
 }

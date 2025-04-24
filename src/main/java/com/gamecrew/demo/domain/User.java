@@ -11,44 +11,45 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class) // 추가
-public class User {
+    @Entity
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @EntityListeners(AuditingEntityListener.class) // 추가
+    public class User {
 
-    @Id
-    @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-    @Column(name = "player_tag")
-    private String playerTag;
+        @Id
+        @Column(name = "user_id")
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long userId;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "age_group")
-    private AgeGroup ageGroup;
+        @Column(name = "player_tag")
+        private String playerTag;
 
-    @Enumerated(EnumType.STRING)
-    private Sex sex;
+        @Enumerated(EnumType.STRING)
+        @Column(name = "age_group")
+        private AgeGroup ageGroup;
 
-    @CreatedDate
-    @Column(name = "create_date")
-    private LocalDateTime createDate;
+        @Enumerated(EnumType.STRING)
+        private Sex sex;
 
-    private String name;
-    private int trophies;
+        @CreatedDate
+        @Column(name = "create_date")
+        private LocalDateTime createDate;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserBrawler> userBrawlers = new ArrayList<>();
+        @Column(nullable = false)
+        private String name;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Post post;
-}
+        @Column(nullable = false)
+        private int trophies;
+
+        @Embedded
+        MostBrawlers mostBrawlers;
+
+        @JsonIgnore
+        @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+        private Post post;
+    }
