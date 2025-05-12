@@ -2,6 +2,7 @@ package com.gamecrew.demo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamecrew.demo.dto.api.PlayerResponseDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+@Slf4j
 @Service
 public class PlayerApiService {
 
@@ -44,6 +46,7 @@ public class PlayerApiService {
     }
 
     private String formatPlayerTag(String playerTag) {
+        log.info(playerTag);
         return playerTag.replace("#","%23");
     }
 

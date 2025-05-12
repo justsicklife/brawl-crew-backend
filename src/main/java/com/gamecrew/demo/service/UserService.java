@@ -4,10 +4,13 @@ import com.gamecrew.demo.domain.MostBrawlers;
 import com.gamecrew.demo.domain.User;
 import com.gamecrew.demo.dto.api.BrawlersResponseDto;
 import com.gamecrew.demo.dto.api.PlayerResponseDto;
-import com.gamecrew.demo.dto.service.UserBrawlersDto;
+import com.gamecrew.demo.dto.request.LoginInfoDto;
 import com.gamecrew.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +27,10 @@ public class UserService {
     final UserRepository userRepository;
 
     final PlayerApiService playerApiService;
+
+    final AuthenticationManager authManager;
+
+    final JWTService jwtService;
 
     public void SaveUser(User user) {
 
@@ -72,6 +79,23 @@ public class UserService {
                 .sorted(Comparator.comparing(BrawlersResponseDto::getTrophies).reversed())
                 .limit(3)
                 .toList();
+    }
+
+    public String verify(LoginInfoDto loginInfoDto) {
+
+        // 이 로직에서 UserDetailService 가 호출 된다.
+        Authentication authentication =
+                authManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                loginInfoDto.getUserEmail(),loginInfoDto.getUserPassword())
+                );
+
+        if(authentication.isAuthenticated()){
+            log.info(loginInfoDto.toString());
+            return jwtService.generateToken(loginInfoDto.getUserEmail());
+        }
+
+        return "fail";
     }
 
 }
