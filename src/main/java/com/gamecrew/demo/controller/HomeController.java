@@ -6,6 +6,7 @@ import com.gamecrew.demo.dto.api.PostDTO;
 
 import com.gamecrew.demo.dto.request.LoginInfoDto;
 import com.gamecrew.demo.dto.request.PostInfoDto;
+import com.gamecrew.demo.service.JWTService;
 import com.gamecrew.demo.service.PostService;
 import com.gamecrew.demo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,8 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +28,7 @@ public class HomeController {
 
     final UserService userService;
     final PostService postService;
+    final JWTService jwtService;
 
     final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -41,19 +41,15 @@ public class HomeController {
 
     @PostMapping("/post")
     @Operation(summary = "게시글 작성",description = "게시글을 작성한다")
-    public String createPost(@RequestBody PostInfoDto postInfoDto) {
+    public String createPost(@RequestBody PostInfoDto postInfoDto,@RequestHeader("Authorization") String accessToken) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userEmail = authentication.getName();
+        log.info("createPost");
 
-        User user = userService.userFindById(postInfoDto.getId());
+        String token = accessToken.substring(7);
 
-        Post post = new Post();
-        post.setMemo(postInfoDto.getMemo());
+        Long userId = jwtService.extractUserId(token);
 
-        post.setUser(user);
-
-        postService.savePost(post);
+        postService.savePost(userId,postInfoDto.getMemo());
 
         return "success";
     }

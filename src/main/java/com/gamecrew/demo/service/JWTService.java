@@ -27,14 +27,17 @@ public class JWTService {
         secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
     }
 
-    public String generateToken(String username) {
+    public String generateToken(Long userId,String userEmail) {
 
         HashMap<String, Object> claims = new HashMap<>();
+
+        claims.put("userId",userId);
+        claims.put("usrename",userEmail);
 
         return Jwts.builder()
                 .claims()
                 .add(claims)
-                .subject(username)
+                .subject(userEmail)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 60))
                 .and()
@@ -51,6 +54,10 @@ public class JWTService {
     public String extractUserName(String token) {
         // extract the username from jwt token
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public Long extractUserId(String token) {
+        return extractClaim(token, claims -> claims.get("userId", Long.class));
     }
 
     // 토큰 안의 모든 클레임을 불러와서, 필요한 값만 꺼내는 재사용 가능한 메서드

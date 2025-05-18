@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
+    @ToString
     @EntityListeners(AuditingEntityListener.class) // 추가
     public class User {
 

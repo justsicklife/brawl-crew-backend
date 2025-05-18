@@ -5,6 +5,7 @@ import com.gamecrew.demo.domain.User;
 import com.gamecrew.demo.dto.api.BrawlersResponseDto;
 import com.gamecrew.demo.dto.api.PlayerResponseDto;
 import com.gamecrew.demo.dto.request.LoginInfoDto;
+import com.gamecrew.demo.repository.UserRepo;
 import com.gamecrew.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,7 @@ public class UserService {
     final AuthenticationManager authManager;
 
     final JWTService jwtService;
+    private final UserRepo userRepo;
 
     public void SaveUser(User user) {
 
@@ -92,7 +94,8 @@ public class UserService {
 
         if(authentication.isAuthenticated()){
             log.info(loginInfoDto.toString());
-            return jwtService.generateToken(loginInfoDto.getUserEmail());
+            Long userId = userRepo.findByUserEmail(loginInfoDto.getUserEmail()).getUserId();
+            return jwtService.generateToken(userId,loginInfoDto.getUserEmail());
         }
 
         return "fail";
